@@ -1,6 +1,8 @@
 class bezierObject {
   PVector[] points;
   PVector[] bezierPoints;
+  PVector[] supportDots;
+  bezierObject supportBezier;
   int size;
   float pointRadius = 10;
   int maxT = 100;
@@ -105,5 +107,29 @@ class bezierObject {
     currentT = round(t * maxT);  
   }
   
+  void calcSupportDots() {
+    supportDots = new PVector[size - 1];
+    
+    for (int i = 0; i < (size - 1); i++) {
+      supportDots[i] = new PVector((points[i + 1].x * (currentT / 100.0)) + (points[i].x * (1 - (currentT / 100.0))), 
+      (points[i + 1].y * (currentT / 100.0)) + (points[i].y * (1 - (currentT / 100.0))));  
+    }
+  }
   
+  void drawSupportDots() {
+    fill(120);
+    noStroke();
+    for (int i = 0; i < (size - 1); i++) {
+      ellipse(supportDots[i].x, supportDots[i].y, pointRadius, pointRadius);
+      //println(supportDots[i].x + " " + supportDots[i].y);
+    }
+  }
+  
+  void drawSupportLines() {
+    fill(120);
+    stroke(0);
+    for (int i = 1; i < (size - 1); i++) {
+      line(supportDots[i-1].x, supportDots[i-1].y, supportDots[i].x, supportDots[i].y);  
+    }
+  }
 }

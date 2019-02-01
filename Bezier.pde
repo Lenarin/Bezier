@@ -43,6 +43,11 @@ void draw() {
   bezier.drawPoints();
   if (bezier.size >= 2) {
     bezier.setT(slider.value);
+    if (slider.value > 0 && slider.value < 1) {
+      bezier.calcSupportDots();
+      bezier.drawSupportLines(); 
+      bezier.drawSupportDots();
+    }
     bezier.drawBezier();
   }
 }
