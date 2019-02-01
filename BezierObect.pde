@@ -86,8 +86,8 @@ class bezierObject {
   }
   
   void drawBezier() {
-    fill(0);
-    stroke(0);
+    fill(color(255, 0, 0));
+    stroke(color(255, 0, 0));
     for (int i = 1; i <= currentT; i++) {
       line(bezierPoints[i-1].x, bezierPoints[i-1].y, bezierPoints[i].x, bezierPoints[i].y);  
     }
@@ -128,7 +128,7 @@ class bezierObject {
   
   void drawSupportLines() {
     fill(120);
-    stroke(0);
+    stroke(120);
     for (int i = 1; i < supportDots.length; i++) {
       line(supportDots[i-1].x, supportDots[i-1].y, supportDots[i].x, supportDots[i].y);  
     }
