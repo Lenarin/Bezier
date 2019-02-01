@@ -3,6 +3,8 @@ class bezierObject {
   PVector[] bezierPoints;
   int size;
   float pointRadius = 10;
+  int maxT = 100;
+  int currentT = maxT;
   
   bezierObject() {
     points = new PVector[0];
@@ -83,13 +85,13 @@ class bezierObject {
   void drawBezier() {
     fill(0);
     stroke(0);
-    for (int i = 1; i <= 100; i++) {
+    for (int i = 1; i <= currentT; i++) {
       line(bezierPoints[i-1].x, bezierPoints[i-1].y, bezierPoints[i].x, bezierPoints[i].y);  
     }
   }
   
   PVector getPoint(float x, float y) {
-    PVector result = new PVector();
+    PVector result = new PVector(-1, -1);
     for (int i = 0; i < size; i++) {
       if (x >= (points[i].x - pointRadius) && x <= (points[i].x + pointRadius) 
       && y >= (points[i].y - pointRadius) && y <= (points[i].y + pointRadius)) {
@@ -98,4 +100,10 @@ class bezierObject {
     }
     return result;
   }
+  
+  void setT(float t) {
+    currentT = round(t * maxT);  
+  }
+  
+  
 }
