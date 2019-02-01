@@ -63,6 +63,7 @@ class bezierObject {
     points = new PVector[0];
     bezierPoints = new PVector[0];
     size = 0;
+    supportDots = new PVector[0];
   }
   
   PVector calcBezier(float t) {
@@ -119,7 +120,7 @@ class bezierObject {
   void drawSupportDots() {
     fill(120);
     noStroke();
-    for (int i = 0; i < (size - 1); i++) {
+    for (int i = 0; i < supportDots.length; i++) {
       ellipse(supportDots[i].x, supportDots[i].y, pointRadius, pointRadius);
       //println(supportDots[i].x + " " + supportDots[i].y);
     }
@@ -128,8 +129,35 @@ class bezierObject {
   void drawSupportLines() {
     fill(120);
     stroke(0);
-    for (int i = 1; i < (size - 1); i++) {
+    for (int i = 1; i < supportDots.length; i++) {
       line(supportDots[i-1].x, supportDots[i-1].y, supportDots[i].x, supportDots[i].y);  
+    }
+  }
+  
+  void calcBezierSupportDots() {
+    PVector[] newSupportDots = new PVector[supportDots.length - 1];  
+    
+    for (int i = 0; i < newSupportDots.length; i++) {
+      newSupportDots[i] = new PVector((supportDots[i + 1].x * (currentT / 100.0)) + (supportDots[i].x * (1 - (currentT / 100.0))), 
+      (supportDots[i + 1].y * (currentT / 100.0)) + (supportDots[i].y * (1 - (currentT / 100.0))));  
+    }
+    
+    supportDots = newSupportDots;
+  }
+  
+  void procudeSupportBezier() {
+    bezier.calcSupportDots();
+    boolean fin = false;
+    
+    while (!fin) {    
+      if (supportDots.length > 1) {
+        bezier.drawSupportLines(); 
+        bezier.drawSupportDots();
+        bezier.calcBezierSupportDots();  
+      } else {
+        bezier.drawSupportDots();
+        fin = true;  
+      }
     }
   }
 }
