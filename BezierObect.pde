@@ -87,4 +87,15 @@ class bezierObject {
       line(bezierPoints[i-1].x, bezierPoints[i-1].y, bezierPoints[i].x, bezierPoints[i].y);  
     }
   }
+  
+  PVector getPoint(float x, float y) {
+    PVector result = new PVector();
+    for (int i = 0; i < size; i++) {
+      if (x >= (points[i].x - pointRadius) && x <= (points[i].x + pointRadius) 
+      && y >= (points[i].y - pointRadius) && y <= (points[i].y + pointRadius)) {
+        result = points[i];
+      }
+    }
+    return result;
+  }
 }

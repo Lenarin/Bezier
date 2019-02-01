@@ -34,12 +34,18 @@ void draw() {
   }
 }
 
-void mouseClicked() {
+void mouseReleased() {
   if (mouseButton == RIGHT) {
     bezier.addPoint(mouseX, mouseY);
     bezier.calcBezierPoints();
   }
   if (mouseButton == LEFT && mouseX >= 1180 && mouseX <= 1260 && mouseY >= 0 && mouseY <= 25) {
     bezier.clear();  
+  }
+}
+
+void mousePressed() {
+  if (mouseButton == LEFT) {
+    PVector point = bezier.getPoint(mouseX, mouseY);  
   }
 }
